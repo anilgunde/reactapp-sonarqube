@@ -1,20 +1,23 @@
 pipeline {
-    agent any
-    tools {nodejs "node"}
+    agent { label 'slave' } // This specifies that the pipeline can run on any available agent
+
     stages {
-        stage('SCM') {
+        stage('Build') {
             steps {
-                checkout scm
+                // Add your build steps here
+                sh 'echo "Building..."'
             }
         }
-        stage('SonarQube Analysis') {
+        stage('Test') {
             steps {
-                script {
-                    def scannerHome = tool 'SonarScanner 4.0'
-                    withSonarQubeEnv("sonarqubeserver") {
-                        sh "${scannerHome}/bin/sonar-scanner"
-                    }
-                }
+                // Add your test steps here
+                sh 'echo "Testing..."'
+            }
+        }
+        stage('Deploy') {
+            steps {
+                // Add your deployment steps here
+                sh 'echo "Deploying..."'
             }
         }
     }
